@@ -175,12 +175,15 @@ public class PokerPhotonManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("OnPlayerEnteredRoom " + newPlayer.NickName);
         lastPlayerNumber = newPlayer.ActorNumber;
-        // if (PlayersCount == PhotonNetwork.CurrentRoom.MaxPlayers)
-        if (PlayersCount >= minPlayers)
+
+        if (PlayersCount == PhotonNetwork.CurrentRoom.MaxPlayers)
         {
-            m_PhotonUI.ActivateStartGameButton();
             PhotonNetwork.CurrentRoom.IsOpen = false;
         }
+        else if (PlayersCount >= minPlayers){
+            m_PhotonUI.ActivateStartGameButton();
+        }
+        
         m_PhotonUI.PlayersCountUpdated(PlayersCount, PhotonNetwork.CurrentRoom.MaxPlayers);
     }
 
